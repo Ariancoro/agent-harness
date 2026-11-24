@@ -5,13 +5,17 @@ disable-model-invocation: false
 user-invocable: true
 metadata:
   author: Ariancoro (https://github.com/Ariancoro)
-  version: "1.2"
+  version: "1.3"
   license: MIT
 ---
 
 # How to write a pull request
 
 Write the title and the body in ASD-STE100 Simplified Technical English. Follow the rules in [`references/ste100.md`](references/ste100.md). Also apply these rules when you update the pull request.
+
+## 0. Repository
+
+Open and edit the pull request in the repository of the `origin` remote, `<repo>` (`owner/name`, from `git remote get-url origin`). Pass `--repo <repo>` to every `gh pr` command. Never let `gh` guess it: in a fork with no default set, it resolves to the parent, and the pull request would land in somebody else's repository. Open a pull request against the parent of a fork only if the user asks for it in this session.
 
 ## 1. Title
 
@@ -28,7 +32,7 @@ If the repository has `agent:*` labels, an agent that creates the pull request a
 | Codex       | `agent:codex`  |
 | Cursor      | `agent:cursor` |
 
-- Add the label with `gh pr create --label agent:<name>`.
+- Add the label with `gh pr create --repo <repo> --label agent:<name>`.
 - If a person creates the pull request without an agent, do not add an `agent:*` label.
 - If `gh pr create` fails because the label does not exist, create the pull request without the label and tell the user.
 
@@ -175,6 +179,7 @@ Example with `TMPDIR=/var/folders/ab/T`:
 
 ```bash
 gh pr create \
+  --repo Ariancoro/example-app \
   --title "fix(courses): align course card price" \
   --body-file "$TMPDIR/pr-body.md" \
   --label agent:claude \
@@ -185,11 +190,11 @@ gh pr create \
   --attach "$TMPDIR/pr-evidence/after-mobile.png"
 ```
 
-If some uploads fail, gh creates the pull request, prints its URL and exits with a non-zero status. Then run `gh pr edit --body-file … --attach …` again with the missing files. Open the pull request and make sure that no local path stays in the body and that each diagram renders.
+If some uploads fail, gh creates the pull request, prints its URL and exits with a non-zero status. Then run `gh pr edit --repo <repo> --body-file … --attach …` again with the missing files. Open the pull request and make sure that no local path stays in the body and that each diagram renders.
 
 ## 6. Update the pull request after new commits
 
-After each push, run `gh pr view --json number,body`. If the branch has an open pull request, update its description:
+After each push, run `gh pr view --repo <repo> --json number,body`. If the branch has an open pull request, update its description:
 
 1. Write the current body to `"$TMPDIR/pr-body.md"`.
 2. Compare each section with the full diff against the base branch (`git diff origin/<base>...HEAD`).
@@ -201,6 +206,6 @@ After each push, run `gh pr view --json number,body`. If the branch has an open 
    - **🚀 Deploy steps:** add the section if a manual step appears, and delete it if none remains. Keep the boxes that someone already checked.
    - **↩️ Rollback:** the steps for the current state, including new migrations or flags.
    - **🤖 Authorship:** new contributors.
-4. Apply it with `gh pr edit --body-file "$TMPDIR/pr-body.md"`. If the body references new local images or videos, add one `--attach` flag for each file, as in "5. Attach the images and the videos". Then make sure that no local path stays in the body.
+4. Apply it with `gh pr edit --repo <repo> --body-file "$TMPDIR/pr-body.md"`. If the body references new local images or videos, add one `--attach` flag for each file, as in "5. Attach the images and the videos". Then make sure that no local path stays in the body.
 
 The description always describes the current state of the whole pull request. Do not append a commit log or a "changes since last review" list. Do not change the `agent:*` label or the assignees.

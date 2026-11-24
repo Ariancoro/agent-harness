@@ -7,7 +7,7 @@ metadata:
   author: Ariancoro (https://github.com/Ariancoro)
   contributors:
     - Isidro Merayo Castellano <isidro.merayo@gmail.com> (https://github.com/isidromerayo)
-  version: "1.0"
+  version: "1.1"
   license: MIT
 ---
 
@@ -32,24 +32,24 @@ If no URL is provided, ask the user for it before doing anything else.
 
 ## 🗂️ Repository
 
-The plan and its phases live as GitLab issues in the repository of the current working directory, and the merge requests are opened there too. Never hardcode a repository: let `glab` resolve it from the local Git remote.
+The plan and its phases live as GitLab issues in the repository of the current working directory, and the merge requests are opened there too. Never let `glab` guess the project: in a fork it can resolve to the parent. Take `<project>` (`group/name`) from the `origin` remote (`git remote get-url origin`), pass `--repo <project>` to every `glab` command, and write `projects/<url-encoded project>/…` in every `glab api` path instead of `:id`. Never write to another project, such as the parent of a fork.
 
 ```bash
-glab issue view <iid>
+glab issue view --repo <project> <iid>
 git checkout -b <iid>-<phase-kebab-name>
-glab mr create --title "..." --description "..." --source-branch "..." --yes
-glab mr list --merged --output json
-glab issue close <iid>
+glab mr create --repo <project> --title "..." --description "..." --source-branch "..." --yes
+glab mr list --repo <project> --merged --output json
+glab issue close --repo <project> <iid>
 ```
 
-Confirm the repository `glab` resolves with `glab repo view`, and check that the provided URL belongs to it. If it does not, stop and ask the user to run the skill from the clone of that repository: the phase branch must be created in the same repository you are implementing the task in.
+Check that the provided URL belongs to `<project>`. If it does not, stop and ask the user to run the skill from the clone of that repository: the phase branch must be created in the same repository you are implementing the task in.
 
 > [!IMPORTANT]
 > Some GitLab instances (notably self-hosted ones using work items) have **automatic issue closing disabled**. There, `Closes #<iid>` in the merge request description renders as a plain reference: the merge request `closes_issues` list stays empty and the referenced issues remain open after merging. Keep including the closing keyword (it still works where auto-close is enabled), but never rely on it: the skill reconciles the issues explicitly (see the steps below).
 
 ## 🔍 Determining the current phase
 
-1. `glab issue view <iid>` to read the given issue.
+1. `glab issue view --repo <project> <iid>` to read the given issue.
 2. If the issue is a **phase (child) issue** (it has a `Part of #<parent>` reference and a to-do checklist), that is the phase to implement.
 3. If the issue is the **parent plan issue** (it has a `Phases` checklist linking child issues), the **current phase** is the **first child issue in that checklist that is still open**. Read that child issue and implement it.
 4. If all child issues are already closed, inform the user that all phases are complete and do not implement anything.
@@ -61,8 +61,8 @@ Confirm the repository `glab` resolves with `glab repo view`, and check that the
 2. **Reconcile stale phases** (covers instances with automatic issue closing disabled). Before implementing, check whether any child issue in the parent `Phases` checklist is still open although its merge request is already merged, and close it explicitly:
 
    ```bash
-   glab mr list --merged --output json   # match each child by a source branch starting with `<child-iid>-`
-   glab issue close <stale-child-iid>
+   glab mr list --repo <project> --merged --output json   # match each child by a source branch starting with `<child-iid>-`
+   glab issue close --repo <project> <stale-child-iid>
    ```
 
    While doing this, also check the corresponding items in the parent `Phases` checklist (`- [x] #<child>`) if they are still unchecked.
@@ -75,7 +75,7 @@ Confirm the repository `glab` resolves with `glab repo view`, and check that the
 
 4. **Implement** the to-do actions of that phase only. Do NOT implement any other phase.
 
-5. **Update the phase issue body** checking the to-do items you completed (`- [x] ...`) with `glab issue update <phase-issue-number> --description ...`.
+5. **Update the phase issue body** checking the to-do items you completed (`- [x] ...`) with `glab issue update --repo <project> <phase-issue-number> --description ...`.
 
 6. **Verify the changes** (typechecking, linting and tests) and fix any issue before continuing.
 
@@ -84,7 +84,7 @@ Confirm the repository `glab` resolves with `glab repo view`, and check that the
 8. **When the user picks a title**, commit, push the branch and **open a merge request** that references the phase issue so merging it closes the issue automatically:
 
    ```bash
-   glab mr create \
+   glab mr create --repo <project> \
      --title "<chosen title>" \
      --description "Closes #<phase-issue-number>" \
      --source-branch "<phase-branch>" \
@@ -98,11 +98,11 @@ Confirm the repository `glab` resolves with `glab repo view`, and check that the
      Closes #<parent-issue-number>
      ```
 
-   - **Check the phase item in the parent plan issue.** GitLab does NOT auto-check task list items when the referenced issue closes, so edit the parent body with `glab issue update <parent-issue-number> --description ...` turning `- [ ] #<phase-issue-number>` into `- [x] #<phase-issue-number>`.
+   - **Check the phase item in the parent plan issue.** GitLab does NOT auto-check task list items when the referenced issue closes, so edit the parent body with `glab issue update --repo <project> <parent-issue-number> --description ...` turning `- [ ] #<phase-issue-number>` into `- [x] #<phase-issue-number>`.
 
-   - Do NOT merge the merge request. Tell the user to merge it. Ask them to confirm the merge (or let them know the next invocation will reconcile it). **When the merge is confirmed, check whether the instance auto-closed the phase issue; if it is still open, close it explicitly with `glab issue close <phase-issue-number>`.** On the last phase, do the same for the parent plan issue. If the user has not confirmed the merge yet, stop here: the reconciliation will run at the start of the next invocation (step 2).
+   - Do NOT merge the merge request. Tell the user to merge it. Ask them to confirm the merge (or let them know the next invocation will reconcile it). **When the merge is confirmed, check whether the instance auto-closed the phase issue; if it is still open, close it explicitly with `glab issue close --repo <project> <phase-issue-number>`.** On the last phase, do the same for the parent plan issue. If the user has not confirmed the merge yet, stop here: the reconciliation will run at the start of the next invocation (step 2).
 
-9. If this is the implementation of the last phase of the plan, suggest the user to export the conversation (using their IDE) and attach it as a comment on the parent plan issue (`glab issue note <parent-issue-number> --message ...`).
+9. If this is the implementation of the last phase of the plan, suggest the user to export the conversation (using their IDE) and attach it as a comment on the parent plan issue (`glab issue note --repo <project> <parent-issue-number> --message ...`).
 
 ## 🔄 How to update the issues
 
