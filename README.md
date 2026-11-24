@@ -180,6 +180,20 @@ command creates the symlinks it needs. They are not committed, so run the ones y
 </details>
 
 <details>
+<summary>Writes to the parent of a fork blocked</summary>
+
+In a fork with no default repository set, `gh` resolves to the parent, so an agent can open a pull request or an issue in
+somebody else's repository. The `forja-skills` plugin ships a Claude Code `PreToolUse` hook,
+[`hooks/guard-gh-repo.py`](hooks/guard-gh-repo.py), that resolves the repository each `gh` write targets (`pr`, `issue`,
+`release`, `label`, `api` with a write method…) and blocks it when it is not the repository of the `origin` remote. The
+GitHub and GitLab skills also pass `--repo` explicitly to every command.
+
+It needs `python3`. To write to another repository on purpose, run the command yourself, or set
+`FORJA_ALLOW_FOREIGN_GH_REPO=1` in your shell. Its tests run with `python3 -m unittest discover -s hooks/tests`.
+
+</details>
+
+<details>
 <summary><code>export</code> blocked via hooks</summary>
 
 The `export` command can leak environment variables (tokens, secrets) if an agent runs it. Each agent has a

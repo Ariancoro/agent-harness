@@ -5,7 +5,7 @@ disable-model-invocation: true
 user-invocable: true
 metadata:
   author: Ariancoro (https://github.com/Ariancoro)
-  version: "1.0"
+  version: "1.1"
   license: MIT
 ---
 
@@ -25,24 +25,24 @@ This skill is invoked as `/create-plan-github <github-issue-url>`.
 
 ## 🗂️ Repository
 
-All the plan lives as GitHub issues in the repository of the current working directory. Never hardcode a repository: let `gh` resolve it from the local Git remote.
+All the plan lives as GitHub issues in the repository of the current working directory. Never let `gh` guess the repository: in a fork with no default set, it resolves to the parent, so the issues and pull requests would land in somebody else's repository. Take `<repo>` (`owner/name`) from the `origin` remote (`git remote get-url origin`), pass `--repo <repo>` to every `gh` command, and write `repos/<repo>/…` in every `gh api` path instead of the `{owner}/{repo}` placeholders. Never write to another repository, such as the parent of a fork.
 
 ```bash
-gh issue view <number>
-gh issue create --title "..." --body "..."
-gh issue edit <number> --body "..."
+gh issue view <number> --repo <repo>
+gh issue create --repo <repo> --title "..." --body "..."
+gh issue edit <number> --repo <repo> --body "..."
 ```
 
-Derive `<number>` from the provided URL. Confirm the repository `gh` resolves with `gh repo view --json nameWithOwner --jq .nameWithOwner`, and check that the provided URL belongs to it. If it does not, stop and ask the user to run the skill from the clone of that repository.
+Derive `<number>` from the provided URL. Check that the provided URL belongs to `<repo>`. If it does not, stop and ask the user to run the skill from the clone of that repository.
 
-To link a phase as a **native GitHub sub-issue** of the parent, use the sub-issues REST API. It expects the child's numeric database `id` (not its issue number), so resolve it first. The `{owner}` and `{repo}` placeholders are substituted by `gh` with the current repository:
+To link a phase as a **native GitHub sub-issue** of the parent, use the sub-issues REST API. It expects the child's numeric database `id` (not its issue number), so resolve it first:
 
 ```bash
 # Resolve the child issue database id from its number
-child_id=$(gh api repos/{owner}/{repo}/issues/<child> --jq .id)
+child_id=$(gh api repos/<repo>/issues/<child> --jq .id)
 
 # Attach the child as a native sub-issue of the parent
-gh api --method POST repos/{owner}/{repo}/issues/<parent>/sub_issues -F sub_issue_id="$child_id"
+gh api --method POST repos/<repo>/issues/<parent>/sub_issues -F sub_issue_id="$child_id"
 ```
 
 ## 🧱 Issue structure
@@ -63,7 +63,7 @@ A plan is stored as a **tree of issues**, using GitHub's **native sub-issues** f
 
 ## 🪜 Steps to create a plan
 
-1. **Read the task** from the parent issue with `gh issue view <parent>`.
+1. **Read the task** from the parent issue with `gh issue view <parent> --repo <repo>`.
 
 2. Define task phases, letting the user choose the amount of phases as described in the guidelines.
 
@@ -71,7 +71,7 @@ A plan is stored as a **tree of issues**, using GitHub's **native sub-issues** f
 
 4. Propose the plan to the user for approval. IMPORTANT: Do not create any issue until the user has agreed on the specific contracts to be considered and the implementation phases.
 
-5. **Create one child issue per phase** with `gh issue create`. Each child issue body must contain:
+5. **Create one child issue per phase** with `gh issue create --repo <repo>`. Each child issue body must contain:
    - The phase description.
    - The phase to-do actions as a checkbox list (`- [ ] ...`).
    - The public contracts for that phase.
@@ -82,13 +82,13 @@ A plan is stored as a **tree of issues**, using GitHub's **native sub-issues** f
 6. **Attach every child as a native sub-issue of the parent.** For each child, resolve its database id and link it to the parent with the sub-issues API (see the snippet in the Repository section above):
 
    ```bash
-   child_id=$(gh api repos/{owner}/{repo}/issues/<child> --jq .id)
-   gh api --method POST repos/{owner}/{repo}/issues/<parent>/sub_issues -F sub_issue_id="$child_id"
+   child_id=$(gh api repos/<repo>/issues/<child> --jq .id)
+   gh api --method POST repos/<repo>/issues/<parent>/sub_issues -F sub_issue_id="$child_id"
    ```
 
    Do this for every phase, in order, so the parent lists all phases as native sub-issues.
 
-7. **Update the parent issue** with `gh issue edit <parent> --body ...` so its body contains the `Goal`, `Context`, agreed design decisions and a `Phases` checklist that links every child issue (`- [ ] #<child> Phase N: <title>`). Preserve the original task description from the parent issue: keep it as-is and append the new plan content below it, separated by a `---` line (do not lose or rewrite the original text).
+7. **Update the parent issue** with `gh issue edit <parent> --repo <repo> --body ...` so its body contains the `Goal`, `Context`, agreed design decisions and a `Phases` checklist that links every child issue (`- [ ] #<child> Phase N: <title>`). Preserve the original task description from the parent issue: keep it as-is and append the new plan content below it, separated by a `---` line (do not lose or rewrite the original text).
 
 8. Suggest next steps. Ask the user what do they want to do:
    - Do not do anything else.

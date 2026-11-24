@@ -5,7 +5,7 @@ disable-model-invocation: true
 user-invocable: true
 metadata:
   author: Ariancoro (https://github.com/Ariancoro)
-  version: "1.0"
+  version: "1.1"
   license: MIT
 ---
 
@@ -28,19 +28,19 @@ If no URL is provided, ask the user for it before doing anything else.
 
 ## 🗂️ Repository
 
-The plan and its phases live as GitHub issues in the repository of the current working directory, and the pull requests are opened there too. Never hardcode a repository: let `gh` resolve it from the local Git remote.
+The plan and its phases live as GitHub issues in the repository of the current working directory, and the pull requests are opened there too. Never let `gh` guess the repository: in a fork with no default set, it resolves to the parent, so the issues and pull requests would land in somebody else's repository. Take `<repo>` (`owner/name`) from the `origin` remote (`git remote get-url origin`), pass `--repo <repo>` to every `gh` command, and write `repos/<repo>/…` in every `gh api` path instead of the `{owner}/{repo}` placeholders. Never write to another repository, such as the parent of a fork.
 
 ```bash
-gh issue view <number>
-gh issue develop <number> --checkout
-gh pr create --title "..." --body "..."
+gh issue view <number> --repo <repo>
+gh issue develop <number> --repo <repo> --checkout
+gh pr create --repo <repo> --title "..." --body "..."
 ```
 
-Confirm the repository `gh` resolves with `gh repo view --json nameWithOwner --jq .nameWithOwner`, and check that the provided URL belongs to it. If it does not, stop and ask the user to run the skill from the clone of that repository: the phase branch must be created in the same repository you are implementing the task in.
+Check that the provided URL belongs to `<repo>`. If it does not, stop and ask the user to run the skill from the clone of that repository: the phase branch must be created in the same repository you are implementing the task in.
 
 ## 🔍 Determining the current phase
 
-1. `gh issue view <url>` to read the given issue.
+1. `gh issue view <url> --repo <repo>` to read the given issue.
 2. If the issue is a **phase (child) issue** (it has a `Part of #<parent>` reference and a to-do checklist), that is the phase to implement.
 3. If the issue is the **parent plan issue** (it has a `Phases` checklist linking child issues), the **current phase** is the **first child issue in that checklist that is still open**. Read that child issue and implement it.
 4. If all child issues are already closed, inform the user that all phases are complete and do not implement anything.
@@ -52,12 +52,12 @@ Confirm the repository `gh` resolves with `gh repo view --json nameWithOwner --j
 2. **Create and check out the linked branch** for that phase issue so the branch is linked to it:
 
    ```bash
-   gh issue develop <phase-issue-number> --checkout
+   gh issue develop <phase-issue-number> --repo <repo> --checkout
    ```
 
 3. **Implement** the to-do actions of that phase only. Do NOT implement any other phase.
 
-4. **Update the phase issue body** checking the to-do items you completed (`- [x] ...`) with `gh issue edit <phase-issue-number> --body ...`.
+4. **Update the phase issue body** checking the to-do items you completed (`- [x] ...`) with `gh issue edit <phase-issue-number> --repo <repo> --body ...`.
 
 5. **Verify the changes** (typechecking, linting and tests) and fix any issue before continuing.
 
@@ -67,6 +67,7 @@ Confirm the repository `gh` resolves with `gh repo view --json nameWithOwner --j
 
    ```bash
    gh pr create \
+     --repo <repo> \
      --title "<chosen title>" \
      --body "Closes #<phase-issue-number>"
    ```

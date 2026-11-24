@@ -11,3 +11,5 @@
 .junie/skills
 .opencode/skills
 CLAUDE.md
+
+__pycache__/
