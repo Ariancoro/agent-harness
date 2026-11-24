@@ -9,8 +9,8 @@ The style only changes how Claude writes to you. It does not change the conventi
 ## Install
 
 ```sh
-claude plugin marketplace add CodelyTV/agent-harness
-claude plugin install ste100@codely
+claude plugin marketplace add Ariancoro/agent-harness
+claude plugin install ste100@forja
 ```
 
 Then run `/config`, look for **Output Style**, and select `ASD-STE100`.

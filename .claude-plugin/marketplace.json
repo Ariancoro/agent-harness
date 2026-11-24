@@ -1,16 +1,15 @@
 {
-	"name": "codely",
-	"description": "Codely’s plugins to level up your code.",
+	"name": "forja",
+	"description": "Forja: skills, plugins and hooks to forge the code you expect.",
 	"owner": {
-		"name": "Codely",
-		"email": "support@codely.com",
-		"url": "https://codely.com"
+		"name": "Ariancoro",
+		"url": "https://github.com/Ariancoro"
 	},
 	"plugins": [
 		{
-			"name": "codely-skills",
+			"name": "forja-skills",
 			"source": "./",
-			"description": "Codely's team skills: planning, docs, OpenSpec, and git conventions.",
+			"description": "Forja skills: planning, docs, OpenSpec, and git conventions.",
 			"category": "engineering"
 		},
 		{
@@ -30,7 +29,10 @@
 			"lspServers": {
 				"ts7": {
 					"command": "tsc",
-					"args": ["--lsp", "-stdio"],
+					"args": [
+						"--lsp",
+						"-stdio"
+					],
 					"extensionToLanguage": {
 						".ts": "typescript",
 						".tsx": "typescriptreact",

@@ -5,7 +5,7 @@ argument-hint: "[docs | conventions] [path …]"
 disable-model-invocation: true
 user-invocable: true
 metadata:
-  author: Codely <support@codely.com> (https://codely.com)
+  author: Ariancoro (https://github.com/Ariancoro)
   version: "1.0"
   license: MIT
 ---

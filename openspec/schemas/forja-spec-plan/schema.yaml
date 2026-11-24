@@ -1,6 +1,6 @@
-name: codely-spec-plan
+name: forja-spec-plan
 version: 1
-description: Codely workflow - lean specs → a single plan.md that is also the task list
+description: Forja workflow - lean specs → a single plan.md that is also the task list
 artifacts:
   - id: specs
     generates: "specs/**/*.md"

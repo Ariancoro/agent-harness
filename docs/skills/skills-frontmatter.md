@@ -2,7 +2,7 @@
 
 ## 💡 Convention
 
-Every skill is defined in a `SKILL.md` file that starts with a YAML frontmatter block. The frontmatter declares how the skill is discovered and invoked, and who authored it. Keep the fields in the following order and always include the full Codely attribution:
+Every skill is defined in a `SKILL.md` file that starts with a YAML frontmatter block. The frontmatter declares how the skill is discovered and invoked, and who authored it. Keep the fields in the following order and always include the full Forja attribution:
 
 ```markdown
 ---
@@ -11,7 +11,7 @@ description: One sentence describing what the skill does and when to use it.
 disable-model-invocation: false
 user-invocable: true
 metadata:
-  author: Codely <support@codely.com> (https://codely.com)
+  author: Ariancoro (https://github.com/Ariancoro)
   version: "1.0"
   license: MIT
 ---
@@ -25,7 +25,7 @@ metadata:
   - `false`: the agent MAY invoke the skill on its own when the `description` matches the task.
   - `true`: the skill only runs when the user invokes it explicitly. Use it for skills with side effects the user must trigger deliberately (e.g. planning or executing work).
 - `user-invocable`: Whether the user can run the skill directly as `/skill-name`. Keep it `true` for every published skill.
-- `metadata.author`: Always the full Codely attribution: `Codely <support@codely.com> (https://codely.com)`.
+- `metadata.author`: Always the full Forja attribution: `Ariancoro (https://github.com/Ariancoro)`.
 - `metadata.version`: The skill version as a quoted string, starting at `"1.0"`. Bump it when the skill's behavior changes.
 - `metadata.license`: The license of the skill. Default to `MIT`.
 
@@ -33,12 +33,12 @@ metadata:
 
 - A consistent frontmatter lets skills.sh and every agent discover and group skills reliably.
 - The `name` ⇄ folder match keeps invocation predictable and avoids broken references between skills.
-- The Codely attribution and license are explicit in every skill, so provenance travels with the file wherever it is copied or installed.
+- The Forja attribution and license are explicit in every skill, so provenance travels with the file wherever it is copied or installed.
 - Explicit `disable-model-invocation` makes it clear which skills the agent may trigger on its own and which require the user.
 
 ## 👀 Examples
 
-### ✅ Good: Full frontmatter with Codely attribution
+### ✅ Good: Full frontmatter with Forja attribution
 
 ```markdown
 ---
@@ -47,7 +47,7 @@ description: Create a plan for the specified task.
 disable-model-invocation: true
 user-invocable: true
 metadata:
-  author: Codely <support@codely.com> (https://codely.com)
+  author: Ariancoro (https://github.com/Ariancoro)
   version: "1.0"
   license: MIT
 ---
@@ -62,12 +62,12 @@ description: Create a plan for the specified task.
 disable-model-invocation: true
 user-invocable: true
 metadata:
-  author: Codely
+  author: Ariancoro
   version: "1.0"
 ---
 ```
 
-The attribution is incomplete (no email or URL) and the `license` field is missing.
+The attribution is incomplete (no URL) and the `license` field is missing.
 
 ### ❌ Bad: No metadata block at all
 
@@ -84,11 +84,11 @@ Without a `metadata` block the skill loses its author, version, and license.
 
 ## 🌍 Real world examples
 
-- [`.agents/skills/create-plan-subagents/SKILL.md`](../../.agents/skills/create-plan-subagents/SKILL.md): full frontmatter with the complete Codely attribution and license.
+- [`.agents/skills/create-plan-subagents/SKILL.md`](../../.agents/skills/create-plan-subagents/SKILL.md): full frontmatter with the complete Forja attribution and license.
 - [`.agents/skills/implement-plan-phase/SKILL.md`](../../.agents/skills/implement-plan-phase/SKILL.md): same standard applied to a user-only skill.
 
 ## 🔗 Related agreements
 
 - [Documentation Standard](../../.agents/skills/create-doc/references/documentation-guidelines.md): how to structure the docs a skill produces.
 
-Frontmatter kept tidy by 🐢 💨 (Turbotuga™, [Codely](https://codely.com)’s mascot).
+Frontmatter hammered into shape at 🔨🔥 [Forja](https://github.com/Ariancoro/agent-harness).

@@ -1,16 +1,22 @@
 {
-	"name": "codely-skills",
-	"description": "Codely's team skills: planning, docs, OpenSpec, and git conventions.",
-	"version": "1.2.0",
+	"name": "forja-skills",
+	"description": "Forja skills: planning, docs, OpenSpec, and git conventions.",
+	"version": "2.0.0",
 	"author": {
-		"name": "Codely",
-		"email": "support@codely.com",
-		"url": "https://codely.com"
+		"name": "Ariancoro",
+		"url": "https://github.com/Ariancoro"
 	},
-	"homepage": "https://github.com/CodelyTV/skills",
-	"repository": "https://github.com/CodelyTV/skills",
+	"homepage": "https://github.com/Ariancoro/agent-harness",
+	"repository": "https://github.com/Ariancoro/agent-harness",
 	"license": "MIT",
-	"keywords": ["engineering", "skills", "commit", "rpi", "openspec"],
+	"keywords": [
+		"engineering",
+		"skills",
+		"commit",
+		"rpi",
+		"openspec",
+		"forja"
+	],
 	"skills": [
 		"./.agents/skills/git-commit",
 		"./.agents/skills/create-pull-request",

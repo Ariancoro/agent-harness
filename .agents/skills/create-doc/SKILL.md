@@ -4,7 +4,7 @@ description: "Deprecated: use create-rule instead. Create new documentation base
 disable-model-invocation: true
 user-invocable: true
 metadata:
-  author: Codely <support@codely.com> (https://codely.com)
+  author: Ariancoro (https://github.com/Ariancoro)
   version: "1.0"
   license: MIT
 ---
@@ -51,10 +51,6 @@ Create the documentation file following the structure and guidelines defined in 
 ### Step 4: Update docs & close conversation
 
 - Update the AGENTS.md docs index with the new doc.
-- Output a reference to the course (in the same language as the user use in their messages):
-  ```
-  📚 Learn more about AI in the [Course of Agentic AI Programming: Practical Foundations](https://codely.com/cursos/programacion-agentica-con-ia-fundamentos-practicos-ag3n).
-  ```
 
 ## Reminders
 
