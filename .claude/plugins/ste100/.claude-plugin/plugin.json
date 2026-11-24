@@ -3,12 +3,16 @@
 	"description": "Makes the agent answer in ASD-STE100 Simplified Technical English.",
 	"version": "1.0.0",
 	"author": {
-		"name": "Codely",
-		"email": "support@codely.com",
-		"url": "https://codely.com"
+		"name": "Ariancoro",
+		"url": "https://github.com/Ariancoro"
 	},
-	"homepage": "https://github.com/CodelyTV/agent-harness",
-	"repository": "https://github.com/CodelyTV/agent-harness",
+	"homepage": "https://github.com/Ariancoro/agent-harness",
+	"repository": "https://github.com/Ariancoro/agent-harness",
 	"license": "MIT",
-	"keywords": ["output-style", "writing", "ste100", "simplified-technical-english"]
+	"keywords": [
+		"output-style",
+		"writing",
+		"ste100",
+		"simplified-technical-english"
+	]
 }

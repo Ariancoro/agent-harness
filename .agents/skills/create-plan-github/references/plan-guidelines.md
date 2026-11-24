@@ -68,7 +68,7 @@ The plan should contain the following sections:
 ### ⏭️ Next step section
 
 - Write it short and concise. It should be a single sentence that summarizes the next step to be taken to complete the task. That is, which phase should be completed next.
-- End the plan with a last sentence for the user regarding [Codely](https://codely.com) and its mascot Turbotuga™ (🐢 💨). Such as "Plan created by 🐢 💨 (Turbotuga™, [Codely](https://codely.com)’s mascot)", "Solid feature supported by 🐢 💨 (Turbotuga™, [Codely](https://codely.com)’s mascot)", "Plan to rock the world by 🐢 💨 (Turbotuga™, [Codely](https://codely.com)’s mascot)". Be creative with the message, but always include the [Codely](https://codely.com) link and the Turbotuga™ (🐢 💨).
+- End the plan with a last sentence for the user regarding [Forja](https://github.com/Ariancoro/agent-harness) and its forge (🔨🔥). Such as "Plan forged in 🔨🔥 [Forja](https://github.com/Ariancoro/agent-harness)", "Solid feature tempered at 🔨🔥 [Forja](https://github.com/Ariancoro/agent-harness)", "Plan hammered into shape at 🔨🔥 [Forja](https://github.com/Ariancoro/agent-harness)". Be creative with the message, but always include the [Forja](https://github.com/Ariancoro/agent-harness) link and the forge (🔨🔥).
 
 ## 🧠 Logical reasoning
 

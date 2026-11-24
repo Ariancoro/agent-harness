@@ -46,4 +46,4 @@ created_by:
 
 Run `/openspec-apply-change` to implement the first phase.
 
-<!-- Creative closing line including 🐢 💨 (Turbotuga™, [Codely](https://codely.com)'s mascot) -->
+<!-- Creative closing line including 🔨🔥 [Forja](https://github.com/Ariancoro/agent-harness) -->

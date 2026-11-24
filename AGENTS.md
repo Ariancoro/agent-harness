@@ -1,6 +1,6 @@
 # Repository
 
-- Codely's agent harness: skills, plugins and hooks that we publish for other projects to install.
+- Forja, Ariancoro's agent harness: skills, plugins and hooks that we publish for other projects to install.
 - Paths:
   - Skills `.agents/skills/`.
   - Claude Code plugins `.claude/plugins/` and `.claude-plugin/`.
@@ -8,7 +8,7 @@
 
 # Skills
 
-- When a skill is renamed, the Codely Agent Harness course must be updated to reflect the new name.
+- When a skill is renamed, update every reference to it: `.claude-plugin/plugin.json`, `skills.sh.json`, `README.md` and other skills.
 
 # Documentation
 

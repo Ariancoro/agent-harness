@@ -4,7 +4,7 @@ description: Create a plan for the specified task and store it as GitLab issues 
 disable-model-invocation: true
 user-invocable: true
 metadata:
-  author: Codely <support@codely.com> (https://codely.com)
+  author: Ariancoro (https://github.com/Ariancoro)
   contributors:
     - Isidro Merayo Castellano <isidro.merayo@gmail.com> (https://github.com/isidromerayo)
   version: "1.0"

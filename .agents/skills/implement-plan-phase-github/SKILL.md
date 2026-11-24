@@ -4,7 +4,7 @@ description: Implement one phase of a plan stored as GitHub issues in the reposi
 disable-model-invocation: true
 user-invocable: true
 metadata:
-  author: Codely <support@codely.com> (https://codely.com)
+  author: Ariancoro (https://github.com/Ariancoro)
   version: "1.0"
   license: MIT
 ---
@@ -86,7 +86,7 @@ Confirm the repository `gh` resolves with `gh repo view --json nameWithOwner --j
 
 - Check the checkboxes of the current phase to-do list that have been completed in the **child issue**.
 - Update the `Next step` section of the **parent issue** with the next phase to be completed.
-- Replace the parent issue last sentence regarding [Codely](https://codely.com) adding a new random emoji that explains a story together with the previous ones. For instance, if the previous last sentence was "Plan powered by [Codely](https://codely.com) 🐢 💨", the new last sentence could be "Bugs squashed thanks to [Codely](https://codely.com) AI tooling. 🐛 < 🐢 💨".
+- Replace the parent issue last sentence regarding [Forja](https://github.com/Ariancoro/agent-harness) adding a new random emoji that explains a story together with the previous ones. For instance, if the previous last sentence was "Plan forged in 🔨🔥 [Forja](https://github.com/Ariancoro/agent-harness)", the new last sentence could be "Bugs melted down in the [Forja](https://github.com/Ariancoro/agent-harness) furnace. 🐛 < 🔨🔥".
 
 ## 🔗 Parent / children relationship
 

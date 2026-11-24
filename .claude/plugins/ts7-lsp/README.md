@@ -11,10 +11,8 @@ A TypeScript 7+ `tsc` binary on `PATH` (e.g. `npm install -g typescript`).
 ## Install
 
 ```sh
-claude plugin marketplace add CodelyTV/agent-harness
-claude plugin install ts7-lsp@codely
+claude plugin marketplace add Ariancoro/agent-harness
+claude plugin install ts7-lsp@forja
 claude plugin disable typescript-lsp@claude-plugins-official
 ```
 
-> Renamed from `tsgo-lsp` in v2.0.0. If you installed the old name, run
-> `claude plugin uninstall tsgo-lsp@codely` first.

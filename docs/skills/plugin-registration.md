@@ -8,7 +8,7 @@ Whenever you add a new skill, you MUST register its folder in that `skills` arra
 
 ```json
 {
-	"name": "codely-skills",
+	"name": "forja-skills",
 	"skills": [
 		"./.agents/skills/git-commit",
 		"./.agents/skills/create-doc",
@@ -71,4 +71,4 @@ If `.agents/skills/create-plan-subagents` exists on disk but is not in the array
 
 - [Skill Frontmatter Standard](skills-frontmatter.md): the `name` ⇄ folder match that each registered path relies on.
 
-Registration kept honest by 🐢 💨 (Turbotuga™, [Codely](https://codely.com)’s mascot).
+Registration tempered at 🔨🔥 [Forja](https://github.com/Ariancoro/agent-harness).

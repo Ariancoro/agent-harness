@@ -4,7 +4,7 @@ description: Write the title and the description of a pull request following the
 disable-model-invocation: false
 user-invocable: true
 metadata:
-  author: Codely <support@codely.com> (https://codely.com)
+  author: Ariancoro (https://github.com/Ariancoro)
   version: "1.2"
   license: MIT
 ---

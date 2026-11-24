@@ -1,26 +1,12 @@
-<p align="center">
-  <a href="https://codely.com">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://codely.com/logo/codely_logo-dark.svg">
-      <source media="(prefers-color-scheme: light)" srcset="https://codely.com/logo/codely_logo-light.svg">
-      <img alt="Codely logo" src="https://codely.com/logo/codely_logo.svg">
-    </picture>
-  </a>
-</p>
-
-<h1 align="center">🤖 Agent Harness</h1>
+<h1 align="center">🔨🔥 Forja</h1>
 
 <p align="center">
-  <a href="https://github.com/CodelyTV"><img alt="Codely OS" src="https://img.shields.io/badge/Codely-OS-green?style=flat-square"></a>
-  <a href="https://codely.com/cafe"><img alt="Codely Cafe News" src="https://img.shields.io/badge/Codely-Cafe_News-%235A3E2B?style=flat-square"></a>
-  <a href="https://codely.com/newsletter"><img alt="Codely Newsletter" src="https://img.shields.io/badge/Codely-Newsletter-%23D3D3D3?style=flat-square"></a>
-  <a href="https://youtube.com/codelytv"><img alt="Codely YouTube" src="https://img.shields.io/badge/Codely-YouTube-red?style=flat-square"></a>
-  <a href="https://codely.com/courses"><img alt="Codely Courses" src="https://img.shields.io/badge/Codely-Courses-black?style=flat-square"></a>
-  <a href="https://github.com/CodelyTV/agent-harness/stargazers"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/codelytv/agent-harness"></a>
+  <a href="https://github.com/Ariancoro/agent-harness/stargazers"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Ariancoro/agent-harness"></a>
+  <a href="https://github.com/CodelyTV/agent-harness"><img alt="Based on CodelyTV/agent-harness" src="https://img.shields.io/badge/based_on-CodelyTV%2Fagent--harness-green?style=flat-square"></a>
 </p>
 
 <p align="center">
-    Skills, plugins and hooks so your agent writes the code you expect, the way you expect.<br>
+    The agent harness where your conventions are forged: skills, plugins and hooks so your agent writes the code you expect, the way you expect.<br>
 </p>
 
 Your agent writes code faster than you can review it. Instead of reading every line, turn your conventions into rules
@@ -69,7 +55,7 @@ Commit messages follow whatever the agent felt like that day.
 ## Install
 
 ```bash
-npx skills@latest add codelytv/agent-harness
+npx skills@latest add Ariancoro/agent-harness
 ```
 
 Pick the skills you want and the agents to install them on. Then run one, for example `/create-rule`.
@@ -78,8 +64,8 @@ Pick the skills you want and the agents to install them on. Then run one, for ex
 <summary>Claude Code plugin</summary>
 
 ```
-/plugin marketplace add CodelyTV/agent-harness
-/plugin install codely-skills@codely
+/plugin marketplace add Ariancoro/agent-harness
+/plugin install forja-skills@forja
 ```
 
 </details>
@@ -112,7 +98,7 @@ Pick the skills you want and the agents to install them on. Then run one, for ex
 </details>
 
 <details>
-<summary><code>codely-spec-plan</code> OpenSpec schema</summary>
+<summary><code>forja-spec-plan</code> OpenSpec schema</summary>
 
 An [OpenSpec custom schema](https://github.com/Fission-AI/OpenSpec/blob/main/docs/customization.md) that brings the
 `create-plan-subagents` flow to OpenSpec. Each change produces only two things to review:
@@ -125,11 +111,11 @@ An [OpenSpec custom schema](https://github.com/Fission-AI/OpenSpec/blob/main/doc
 Install it in your project and select it in `openspec/config.yaml`:
 
 ```bash
-npx degit CodelyTV/agent-harness/openspec/schemas/codely-spec-plan openspec/schemas/codely-spec-plan
+npx degit Ariancoro/agent-harness/openspec/schemas/forja-spec-plan openspec/schemas/forja-spec-plan
 ```
 
 ```yaml
-schema: codely-spec-plan
+schema: forja-spec-plan
 ```
 
 </details>
@@ -146,8 +132,8 @@ sentences, active voice, one word per meaning, no idioms. It changes how the age
 code.
 
 ```
-/plugin marketplace add CodelyTV/agent-harness
-/plugin install ste100@codely
+/plugin marketplace add Ariancoro/agent-harness
+/plugin install ste100@forja
 ```
 
 Then run `/config`, look for **Output Style**, and select `ASD-STE100`. More in its
@@ -165,8 +151,8 @@ large monorepos roughly 10x faster and with far less CPU than the official `type
 Requires a TypeScript 7+ `tsc` binary on `PATH` (e.g. `npm install -g typescript`).
 
 ```
-/plugin marketplace add CodelyTV/agent-harness
-/plugin install ts7-lsp@codely
+/plugin marketplace add Ariancoro/agent-harness
+/plugin install ts7-lsp@forja
 /plugin disable typescript-lsp@claude-plugins-official
 ```
 
@@ -208,14 +194,12 @@ pre-execution hook that blocks any shell command containing `export`:
 
 </details>
 
-## Learn to build your own harness
+## Credits
 
-Every skill, plugin and hook in this repository comes from a [Codely](https://codely.com) course. The courses explain
-why each piece works and how to build your own for your project. Take them in this order (they are in Spanish):
+Forja is a fork of [CodelyTV/agent-harness](https://github.com/CodelyTV/agent-harness), released under the MIT license
+by [Codely](https://codely.com). Their courses explain why each piece of the original harness works (in Spanish):
 
-| Course                                                                                                                                       | What you learn                                                                                              | In this repository                                                 |
-|----------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------|
-| ✨ [Programación agéntica con IA: Fundamentos prácticos](https://codely.com/cursos/programacion-agentica-con-ia-fundamentos-practicos-ag3n) | `AGENTS.md`, skills, MCPs, subagents, costs and security hooks: the base of any harness.                    | `AGENTS.md` for every agent, `export` blocked via hooks            |
-| 📜 [Spec-Driven Development con RPI](https://codely.com/cursos/spec-driven-development-con-research-plan-implement-rpi-rp12)                | Research, Plan, Implement: split larger tasks into reviewable phases and implement them one at a time.      | `create-plan`, `implement-plan-phase` and their variants           |
-| ⚫ [Spec-Driven Development con OpenSpec](https://codely.com/cursos/spec-driven-development-con-openspec-0p3n)                              | Keep living specs next to your code, add them to existing code and simplify OpenSpec with your own schema. | `openspec-create-spec-from-code`, `codely-spec-plan` schema        |
-| 🤿 [Agent Harness: De revisar código a revisar outputs](https://codely.com/cursos/agent-harness-de-revisar-codigo-a-revisar-outputs-4g4r)   | Turn docs into rules, add guardrails so the agent verifies its work, and review outputs instead of code.     | `deterministify`, `create-rule`, `create-pull-request`, `ts7-lsp` |
+- ✨ [Programación agéntica con IA: Fundamentos prácticos](https://codely.com/cursos/programacion-agentica-con-ia-fundamentos-practicos-ag3n)
+- 📜 [Spec-Driven Development con RPI](https://codely.com/cursos/spec-driven-development-con-research-plan-implement-rpi-rp12)
+- ⚫ [Spec-Driven Development con OpenSpec](https://codely.com/cursos/spec-driven-development-con-openspec-0p3n)
+- 🤿 [Agent Harness: De revisar código a revisar outputs](https://codely.com/cursos/agent-harness-de-revisar-codigo-a-revisar-outputs-4g4r)
